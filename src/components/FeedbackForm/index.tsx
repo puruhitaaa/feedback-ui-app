@@ -1,11 +1,18 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { FeedbackItem } from '../FeedbackItem';
+import RatingSelect from '../RatingSelect';
 import Button from '../shared/Button';
 import Card from '../shared/Card';
 
-const FeedbackForm = () => {
+interface FeedbackFormProps {
+  handleAdd: (newFeedback: FeedbackItem) => void;
+}
+
+const FeedbackForm = ({ handleAdd }: FeedbackFormProps) => {
   const [reviewContent, setReviewContent] = useState('');
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState(10);
   const [message, setMessage] = useState('');
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,11 +30,25 @@ const FeedbackForm = () => {
     setReviewContent(e.target.value);
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (reviewContent.trim().length >= 10) {
+      const newFeedback = {
+        id: uuidv4(),
+        text: reviewContent,
+        rating,
+      };
+
+      handleAdd(newFeedback);
+    }
+  };
+
   return (
     <Card>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>How would you rate your service with us?</h2>
-        {/* @todo - rating select component */}
+        <RatingSelect select={(rating) => setRating(rating)} />
         <div className="input-group">
           <input
             type="text"

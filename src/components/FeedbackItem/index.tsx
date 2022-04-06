@@ -2,10 +2,10 @@ import { FaTimes } from 'react-icons/fa';
 import Card from '../shared/Card';
 
 export interface FeedbackItem {
-  id: number;
+  id: string;
   rating: number;
   text: string;
-  deleteFeedback?: (id: number) => void;
+  deleteFeedback?: (id: string) => void;
 }
 
 const Feedback = ({

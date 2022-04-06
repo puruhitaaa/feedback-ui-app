@@ -3,7 +3,7 @@ import { FeedbackItem as FeedbackItemProps } from '../FeedbackItem';
 
 export interface FeedbackListProps {
   feedbacks: FeedbackItemProps[];
-  deleteFeedback: (id: number) => void;
+  deleteFeedback: (id: string) => void;
 }
 
 const FeedbackList = ({ feedbacks, deleteFeedback }: FeedbackListProps) => {
