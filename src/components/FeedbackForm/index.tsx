@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { FeedbackContext } from '../../context/FeedbackContext';
 import RatingSelect from '../RatingSelect';
@@ -10,7 +10,9 @@ const FeedbackForm = () => {
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [rating, setRating] = useState(10);
   const [message, setMessage] = useState('');
-  const { addFeedback } = useContext(FeedbackContext);
+
+  const { addFeedback, updateFeedbackItem, feedbackEdit } =
+    useContext(FeedbackContext);
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (reviewContent === '') {
@@ -37,9 +39,23 @@ const FeedbackForm = () => {
         rating,
       };
 
-      addFeedback(newFeedback);
+      if (feedbackEdit.edit) {
+        updateFeedbackItem(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
+
+      setReviewContent('');
     }
   };
+
+  useEffect(() => {
+    if (feedbackEdit.edit) {
+      setIsBtnDisabled(false);
+      setReviewContent(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
+    }
+  }, [feedbackEdit]);
 
   return (
     <Card>
