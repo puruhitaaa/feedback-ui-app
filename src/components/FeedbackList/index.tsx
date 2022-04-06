@@ -1,13 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { useContext } from 'react';
 import { FeedbackItem } from '..';
-import { FeedbackItem as FeedbackItemProps } from '../FeedbackItem';
+import { FeedbackContext } from '../../context/FeedbackContext';
 
-export interface FeedbackListProps {
-  feedbacks: FeedbackItemProps[];
-  deleteFeedback: (id: string) => void;
-}
+const FeedbackList = () => {
+  const { feedbacks } = useContext(FeedbackContext);
 
-const FeedbackList = ({ feedbacks, deleteFeedback }: FeedbackListProps) => {
   if (!feedbacks || feedbacks.length === 0) return <p>No feedbacks yet.</p>;
 
   return (
@@ -21,7 +19,6 @@ const FeedbackList = ({ feedbacks, deleteFeedback }: FeedbackListProps) => {
             exit={{ opacity: 0 }}
           >
             <FeedbackItem
-              deleteFeedback={deleteFeedback}
               id={feedback.id}
               rating={feedback.rating}
               text={feedback.text}

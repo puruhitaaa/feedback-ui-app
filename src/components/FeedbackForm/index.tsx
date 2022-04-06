@@ -1,19 +1,16 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { FeedbackItem } from '../FeedbackItem';
+import { FeedbackContext } from '../../context/FeedbackContext';
 import RatingSelect from '../RatingSelect';
 import Button from '../shared/Button';
 import Card from '../shared/Card';
 
-interface FeedbackFormProps {
-  handleAdd: (newFeedback: FeedbackItem) => void;
-}
-
-const FeedbackForm = ({ handleAdd }: FeedbackFormProps) => {
+const FeedbackForm = () => {
   const [reviewContent, setReviewContent] = useState('');
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [rating, setRating] = useState(10);
   const [message, setMessage] = useState('');
+  const { addFeedback } = useContext(FeedbackContext);
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (reviewContent === '') {
@@ -40,7 +37,7 @@ const FeedbackForm = ({ handleAdd }: FeedbackFormProps) => {
         rating,
       };
 
-      handleAdd(newFeedback);
+      addFeedback(newFeedback);
     }
   };
 

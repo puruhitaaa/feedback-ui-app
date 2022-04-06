@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Card } from '../../components';
 
-const About = () => {
+const NotFound = () => {
   return (
     <div className="container">
       <Card>
         <div className="about">
-          <h1>About this project</h1>
+          <h1>Page not found</h1>
           <p>
-            This is the greatest react app ever to leave feedback for a product
-            or service
+            The page you are trying to visit does not exist. If you think you
+            might be lost, click the navigation below to head back to the main
+            page.
           </p>
-          <p>Version: 1.0.0</p>
 
           <p>
             <Link to="/">Go home</Link>
@@ -22,4 +22,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default NotFound;
