@@ -2,9 +2,9 @@ import { ReactNode } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
-  isDisabled: boolean;
-  type: 'button' | 'submit';
-  variant: string;
+  isDisabled?: boolean;
+  type?: 'button' | 'submit';
+  variant?: string;
 }
 
 const Button = ({
