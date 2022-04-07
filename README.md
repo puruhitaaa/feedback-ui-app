@@ -11,7 +11,7 @@ https://preeminent-pithivier-b6b642.netlify.app/
 Install feedback-app-ui with npm
 
 ```bash
-  cd feedback-app-ui
+  cd feedback-ui-app
   npm install
 ```
     
